@@ -1,5 +1,9 @@
 
 
+## Features
+
+- User signup with email, username, first name, and last name
+
 ## Technologies
 
 - Django
