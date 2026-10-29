@@ -30,6 +30,16 @@ class CustomUserCreationForm(UserCreationForm):
             attrs={"placeholder": "Khan", "autocomplete": "family-name"}
         ),
     )
+    password1 = forms.CharField(
+        required=True,
+        label='',
+        widget=forms.PasswordInput()
+    )
+    password2 = forms.CharField(
+        required=True,
+        label='',
+        widget=forms.PasswordInput()
+    )
 
     class Meta:
         model = User
