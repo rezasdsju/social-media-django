@@ -3,9 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class CustomUserCreationForm(UserCreationForm):
-  email = forms.EmailField(required=True)
-  first_name = forms.CharField(max_length=30, required=False)
-  last_name = forms.CharField(max_length=30, required=False)
+  username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'myusername'}))
+  email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder':'abc@email.com'}))
+  first_name = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={'placeholder':'Jolil'}))
+  last_name = forms.CharField(max_length=30, required=False, widget=forms.TextInput(attrs={'placeholder':'Khan'}))
 
   class Meta:
     model = User
