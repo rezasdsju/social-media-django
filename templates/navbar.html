@@ -63,11 +63,22 @@
         </div>
 
         {% else %}
-        <div class="hidden sm:flex items-center gap-2 text-sm whitespace-nowrap">
+        <span
+          class="sm:hidden flex h-9 w-9 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 hover:text-blue-600 transition cursor-pointer"
+          id="user-unauthenticated">
+          <i class="fa-regular fa-user text-lg"></i>
+        </span>
+
+        <div class="hidden sm:flex items-center gap-3 text-sm whitespace-nowrap">
           <a href='{% url "App_Login:login" %}'
-            class="px-3 py-1.5 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">Login</a>
+            class="px-4 py-2 rounded-lg font-semibold text-gray-700 border border-gray-300 hover:border-blue-600 hover:text-blue-600 transition-colors">
+            Login
+          </a>
+
           <a href='{% url "App_Login:sign_up" %}'
-            class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium">Sign Up</a>
+            class="px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white shadow-sm hover:bg-blue-700 hover:shadow transition-all">
+            Sign Up
+          </a>
         </div>
         {% endif %}
       </div>
@@ -77,13 +88,26 @@
     </div>
 
 
-    <div id="nav-links" class="hidden sm:hidden border-t border-gray-200 px-4 py-3">
-      <a href='{% url "App_Login:login" %}' class="block py-2 text-gray-700 hover:text-blue-600">
-        Login
-      </a>
-      <a href='{% url "App_Login:sign_up" %}' class="block py-2 text-gray-700 hover:text-blue-600">
-        Sign Up
-      </a>
+
+
+
+
+
+
+    <div id="nav-links" class="hidden sm:hidden border-t border-gray-100 bg-white px-4 py-3">
+      <nav class="flex flex-col gap-1">
+        <a href="#"
+          class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-blue-600 bg-blue-50 transition-colors hover:bg-blue-100">
+          <i class="fa-solid fa-house w-5 text-center"></i>
+          Home
+        </a>
+
+        <a href="#"
+          class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-blue-600">
+          <i class="fa-solid fa-users w-5 text-center"></i>
+          Followers
+        </a>
+      </nav>
     </div>
 
 
@@ -91,13 +115,15 @@
 
 
 
+
+
+
+
+
+    {% if user.is_authenticated %}
     <div class="relative ">
-
-
-      <!-- User Profile Dropdown -->
       <div id="user-profile"
         class="hidden absolute right-0 top-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-100 z-50 overflow-hidden">
-
         <div class="px-4 py-4 border-b border-gray-100">
           <p class="font-semibold text-gray-800">{{ user.username }}</p>
           <p class="text-sm text-gray-500 truncate">{{ user.email }}</p>
@@ -127,9 +153,35 @@
             </button>
           </form>
         </div>
-
       </div>
     </div>
+
+    {% else %}
+    <div id="auth-buttons"
+      class="hidden sm:hidden absolute right-4 top-16 w-64 rounded-xl border border-gray-200 bg-white p-4 shadow-xl z-50">
+      <p class="text-sm font-semibold text-gray-800 mb-1">
+        Welcome to Social Network
+      </p>
+      <p class="text-xs text-gray-500 mb-4">
+        Login or create an account to get started.
+      </p>
+
+      <div class="flex flex-col gap-2">
+        <a href='{% url "App_Login:login" %}'
+          class="flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          Login
+        </a>
+
+        <a href='{% url "App_Login:sign_up" %}'
+          class="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-50">
+          <i class="fa-solid fa-user-plus"></i>
+          Create Account
+        </a>
+      </div>
+    </div>
+    {% endif %}
+
 
 
   </nav>
@@ -140,27 +192,67 @@
   </div>
   <script>
     const hamburger = document.getElementById("hamburger");
-    const showNavLinks = false
     const navLinks = document.getElementById("nav-links")
     hamburger.addEventListener("click", () => {
       const icon = hamburger.querySelector("i");
       navLinks.classList.toggle('hidden')
       icon.classList.toggle("fa-bars");
       icon.classList.toggle("fa-x");
-
+      if (authButtons) {
+        authButtons.classList.add('hidden');
+      }
+      if (userProfile) {
+        userProfile.classList.add('hidden');
+      }
     });
 
 
     const user = document.getElementById('user')
     const userProfile = document.getElementById('user-profile')
-    user.addEventListener('click', (event) => {
-      event.stopPropagation()
-      userProfile.classList.toggle('hidden')
+    if (user && userProfile) {
+      user.addEventListener('click', (event) => {
+        event.stopPropagation()
+        userProfile.classList.toggle('hidden')
+        if (navLinks) {
+          navLinks.classList.add('hidden')
+          hamburger.querySelector("i").classList.replace("fa-x", "fa-bars")
+        }
+      })
 
-    })
+    }
+
+    const userUnauthenticated = document.getElementById('user-unauthenticated')
+    const authButtons = document.getElementById('auth-buttons')
+    if (userUnauthenticated && authButtons) {
+      userUnauthenticated.addEventListener('click', (event) => {
+        event.stopPropagation()
+        authButtons.classList.toggle('hidden')
+
+        // Close hamburger menu
+        navLinks.classList.add('hidden')
+        hamburger.querySelector("i").classList.replace("fa-x", "fa-bars")
+      })
+    }
+
     document.addEventListener('click', (event) => {
-      if (!userProfile.contains(event.target)) {
+      // Close profile dropdown
+      if (userProfile && !userProfile.contains(event.target) && !user.contains(event.target)) {
         userProfile.classList.add('hidden')
+      }
+
+      // Close authentication dropdown
+      if (authButtons && !authButtons.contains(event.target) && !userUnauthenticated.contains(event.target)) {
+        authButtons.classList.add('hidden')
+      }
+
+      // Close navigation menu when clicking outside
+      if (
+        navLinks &&
+        !navLinks.contains(event.target) &&
+        !hamburger.contains(event.target)
+      ) {
+        navLinks.classList.add('hidden')
+        hamburger.querySelector('i').classList.replace('fa-x', 'fa-bars')
       }
     })
   </script>
