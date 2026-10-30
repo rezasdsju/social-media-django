@@ -1,67 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      {% block title %}
-        Social Network
-      {% endblock %}
-    </title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css" integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <style>
-      .navbar-collapse.collapse:not(.show) {
-        visibility: visible;
-      }
-      @media (max-width: 991.98px) {
-        .navbar-collapse.collapse:not(.show) {
-          display: none;
-        }
-      }
-    </style>
-    {% block extra_css %}
-
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    {% block title %}
+    Social Network
     {% endblock %}
-  </head>
-  <body>
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
-        <!-- Logo -->
-        <a href="#" class="flex items-center gap-2">
-          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white text-sm font-bold tracking-tight shadow-sm">
-            <span>S</span><span>N</span>
-          </div>
-          <span class="hidden sm:block text-xl font-bold text-blue-600 whitespace-nowrap">Social Network</span>
-        </a>
+  </title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css"
+    integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <!-- Search -->
-        <form action="" method="get" class="flex-1 max-w-md">
-          <div class="relative">
-            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-            <input type="search" name="q" placeholder="Search" class="w-full pl-9 pr-3 py-1.5 rounded-full bg-gray-100 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
-          </div>
-        </form>
+  <style>
+    .navbar-collapse.collapse:not(.show) {
+      visibility: visible;
+    }
 
-        <!-- Auth buttons -->
-        <div class="hidden sm:flex items-center gap-2 text-sm whitespace-nowrap">
-          <a href="{% url 'App_Login:login' %}" class="px-3 py-1.5 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">Login</a>
-          <a href="{% url 'App_Login:sign_up' %}" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium">Sign Up</a>
+    @media (max-width: 991.98px) {
+      .navbar-collapse.collapse:not(.show) {
+        display: none;
+      }
+    }
+  </style>
+  {% block extra_css %}
+
+  {% endblock %}
+</head>
+
+<body>
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2">
+        <div
+          class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white text-sm font-bold tracking-tight shadow-sm">
+          <span>S</span><span>N</span>
         </div>
-        <div class="flex sm:hidden">
-          <span><i class="fa-solid fa-bars"></i></span>
+        <span class="hidden sm:block text-xl font-bold text-blue-600 whitespace-nowrap">Social Network</span>
+      </a>
+
+      <!-- Search -->
+      <form action="" method="get" class="flex-1 max-w-md">
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <input type="search" name="q" placeholder="Search"
+            class="w-full pl-9 pr-3 py-1.5 rounded-full bg-gray-100 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
         </div>
+      </form>
+
+      <!-- Auth buttons -->
+      <div class="hidden sm:flex items-center gap-2 text-sm whitespace-nowrap">
+        <a href='{% url "App_Login:login" %}'
+          class="px-3 py-1.5 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">Login</a>
+        <a href='{% url "App_Login:sign_up" %}'
+          class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium">Sign Up</a>
       </div>
-    </nav>
-    <div class="container">
-      {% block content %}
-
-      {% endblock %}
+      <div class="flex sm:hidden">
+        <button type="button" id="hamburger" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+      </div>
     </div>
 
-    {% block extra_js %}
+
+    <div id="nav-links" class="hidden sm:hidden border-t border-gray-200 px-4 py-3">
+      <a href='{% url "App_Login:login" %}' class="block py-2 text-gray-700 hover:text-blue-600">
+        Login
+      </a>
+      <a href='{% url "App_Login:sign_up" %}' class="block py-2 text-gray-700 hover:text-blue-600">
+        Sign Up
+      </a>
+    </div>
+  </nav>
+  <div class="container">
+    {% block content %}
 
     {% endblock %}
-  </body>
+  </div>
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const showNavLinks = false
+    const navLinks = document.getElementById("nav-links")
+    hamburger.addEventListener("click", () => {
+      const icon = hamburger.querySelector("i");
+      navLinks.classList.toggle('hidden')
+      icon.classList.toggle("fa-bars");
+      icon.classList.toggle("fa-x");
+
+    });
+  </script>
+  {% block extra_js %}
+
+  {% endblock %}
+</body>
+
 </html>
