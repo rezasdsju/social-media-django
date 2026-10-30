@@ -5,7 +5,9 @@ A social networking application where users can create profiles, share posts, an
 ## Features
 
 - User registration with email, username, first name, and last name
-- User login with username and password
+- User authentication with username and password
+- User profile dropdown with authenticated user information
+- Secure user logout functionality
 
 ## Technologies
 
