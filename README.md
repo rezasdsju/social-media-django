@@ -14,6 +14,5 @@ A social networking application where users can create profiles, share posts, an
 - Python
 - Django
 - JavaScript (DOM Manipulation)
-- Bootstrap 5
 - Tailwind CSS
 - Django Crispy Forms
