@@ -7,8 +7,7 @@
 
 {% block content %}
   <div class="min-h-screen flex items-start sm:items-center justify-center bg-gray-50 px-0 sm:px-6 lg:px-8 py-0 sm:py-10">
-    <!-- Mobile: full width | Tablet: max-w-md | Desktop: max-w-lg -->
-    <div class="w-full sm:max-w-md lg:max-w-lg bg-white sm:rounded-2xl sm:shadow-lg sm:border sm:border-gray-100 px-5 py-8 sm:p-8">
+    <div class="w-full max-w-lg bg-white sm:rounded-2xl sm:shadow-lg sm:border sm:border-gray-100 px-4 py-8 sm:p-8">
       <h2 class="text-center text-2xl sm:text-3xl font-bold text-gray-800 mb-6">Create an Account</h2>
 
       <form method="post" novalidate class="w-full space-y-4">
@@ -28,55 +27,55 @@
     </div>
   </div>
   {% block extra_js %}
-<script>
-  function addPasswordToggle(inputId) {
-    const passwordInput = document.getElementById(inputId);
-
-    if (passwordInput) {
-      const parent = passwordInput.parentElement;
-
-      const toggleButton = document.createElement('button');
-      toggleButton.type = 'button';
-      toggleButton.innerHTML = '<i class="fa-solid fa-eye"></i>';
-      toggleButton.setAttribute('aria-label', 'Show password');
-
-      const inputWrapper = document.createElement('div');
-      inputWrapper.style.position = 'relative';
-      inputWrapper.style.width = '100%';
-
-      passwordInput.style.width = '100%';
-      passwordInput.style.paddingRight = '45px';
-
-      toggleButton.style.position = 'absolute';
-      toggleButton.style.right = '12px';
-      toggleButton.style.top = '50%';
-      toggleButton.style.transform = 'translateY(-50%)';
-      toggleButton.style.background = 'transparent';
-      toggleButton.style.border = 'none';
-      toggleButton.style.cursor = 'pointer';
-      toggleButton.style.color = '#2563eb';
-      toggleButton.style.fontSize = '16px';
-
-      inputWrapper.appendChild(passwordInput);
-      inputWrapper.appendChild(toggleButton);
-      parent.appendChild(inputWrapper);
-
-      toggleButton.addEventListener('click', () => {
-        if (passwordInput.type === 'password') {
-          passwordInput.type = 'text';
-          toggleButton.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
-          toggleButton.setAttribute('aria-label', 'Hide password');
-        } else {
-          passwordInput.type = 'password';
-          toggleButton.innerHTML = '<i class="fa-solid fa-eye"></i>';
-          toggleButton.setAttribute('aria-label', 'Show password');
+    <script>
+      function addPasswordToggle(inputId) {
+        const passwordInput = document.getElementById(inputId)
+      
+        if (passwordInput) {
+          const parent = passwordInput.parentElement
+      
+          const toggleButton = document.createElement('button')
+          toggleButton.type = 'button'
+          toggleButton.innerHTML = '<i class="fa-solid fa-eye"></i>'
+          toggleButton.setAttribute('aria-label', 'Show password')
+      
+          const inputWrapper = document.createElement('div')
+          inputWrapper.style.position = 'relative'
+          inputWrapper.style.width = '100%'
+      
+          passwordInput.style.width = '100%'
+          passwordInput.style.paddingRight = '45px'
+      
+          toggleButton.style.position = 'absolute'
+          toggleButton.style.right = '12px'
+          toggleButton.style.top = '50%'
+          toggleButton.style.transform = 'translateY(-50%)'
+          toggleButton.style.background = 'transparent'
+          toggleButton.style.border = 'none'
+          toggleButton.style.cursor = 'pointer'
+          toggleButton.style.color = '#2563eb'
+          toggleButton.style.fontSize = '16px'
+      
+          inputWrapper.appendChild(passwordInput)
+          inputWrapper.appendChild(toggleButton)
+          parent.appendChild(inputWrapper)
+      
+          toggleButton.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+              passwordInput.type = 'text'
+              toggleButton.innerHTML = '<i class="fa-solid fa-eye-slash"></i>'
+              toggleButton.setAttribute('aria-label', 'Hide password')
+            } else {
+              passwordInput.type = 'password'
+              toggleButton.innerHTML = '<i class="fa-solid fa-eye"></i>'
+              toggleButton.setAttribute('aria-label', 'Show password')
+            }
+          })
         }
-      });
-    }
-  }
-
-  addPasswordToggle('id_password1');
-  addPasswordToggle('id_password2');
-</script>
+      }
+      
+      addPasswordToggle('id_password1')
+      addPasswordToggle('id_password2')
+    </script>
   {% endblock %}
 {% endblock %}
